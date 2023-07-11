@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+
 
 
 from IPython.display import display, HTML
 display(HTML("<style>.container { width:90% !important; }</style>"))
 
 
-# In[2]:
+
 
 
 import pandas as pd
@@ -22,7 +22,7 @@ from shapely.ops import transform
 from functools import partial
 
 
-# In[40]:
+
 
 
 #shp 파일에서 불러오기
@@ -33,7 +33,7 @@ sd_busan = sd_busan[sd_busan.CTP_KOR_NM.str.contains('부산')].geometry[1]
 sd_busan
 
 
-# In[43]:
+
 
 
 #epsg 변경
@@ -41,7 +41,6 @@ project = pyproj.Transformer.from_proj('EPSG:5179', 'EPSG:4326', always_xy=True)
 sd_busan = transform(project, sd_busan)
 
 
-# In[44]:
 
 
 # 읍면동 단위 이동편의성, 생활편의성, 주거편의성 높은 지역 표시
@@ -54,13 +53,12 @@ location = [lat-0.04, lng]
 print(lat,lng)
 
 
-# In[45]:
 
 
 emd_busan_gdf = pd.read_csv('emd_busan_gdf.csv')
 
 
-# In[46]:
+
 
 
 #기준치
@@ -68,7 +66,7 @@ th_liv_emd = emd_busan_gdf.living_conv_score_norm.quantile(q=0.9)
 th_mov_emd = emd_busan_gdf.move_conv_score_norm.quantile(q=0.9)
 
 
-# In[74]:
+
 
 
 m = folium.Map(
@@ -78,7 +76,6 @@ m = folium.Map(
 )
 
 
-# In[49]:
 
 
 #부산지역
@@ -86,13 +83,11 @@ geo_poly = folium.GeoJson(data=sd_busan, style_function=lambda x: {'fillColor': 
 geo_poly.add_to(m)
 
 
-# In[50]:
 
 
 emd_busan_gdf['geometry'] = gpd.GeoSeries.from_wkt(emd_busan_gdf['geometry'])
 
 
-# In[77]:
 
 
 #동별 구분
@@ -109,7 +104,7 @@ for polygon in emd_busan_gdf.geometry:
 m    
 
 
-# In[78]:
+
 
 
 # 이동편의성만 높은 경우 - 파란색
@@ -122,7 +117,7 @@ for polygon in intersect_poly_lst_move:
     geo_poly.add_to(m)   
 
 
-# In[79]:
+
 
 
 # 생활편의성만 높은 경우 - 빨간색
@@ -135,7 +130,7 @@ for polygon in intersect_poly_lst_liv:
     geo_poly.add_to(m)   
 
 
-# In[80]:
+
 
 
 # 두 편의성 다 높은 경우 - 보라색
@@ -150,7 +145,6 @@ for polygon in intersect_poly_lst_both:
 m
 
 
-# In[ ]:
 
 
 
