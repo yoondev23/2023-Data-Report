@@ -2,15 +2,6 @@
 # coding: utf-8
 
 
-
-
-from IPython.display import display, HTML
-display(HTML("<style>.container { width:90% !important; }</style>"))
-
-
-
-
-
 import pandas as pd
 import folium 
 import geopandas as gpd
@@ -79,12 +70,7 @@ h3_conv_score.head(5)
 
 
 
-
-
 h3_conv_score['geometry'] = gpd.GeoSeries.from_wkt(h3_conv_score['geometry'])
-
-
-
 
 
 intersect_poly_lst_move = h3_conv_score.loc[(h3_conv_score.living_conv_score_norm < th_liv_h3) & (h3_conv_score.move_conv_score_norm >= th_mov_h3), ['geometry']]['geometry']
