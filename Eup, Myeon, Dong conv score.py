@@ -2,15 +2,6 @@
 # coding: utf-8
 
 
-
-
-from IPython.display import display, HTML
-display(HTML("<style>.container { width:90% !important; }</style>"))
-
-
-
-
-
 import pandas as pd
 import geopandas as gpd
 import folium 
@@ -101,10 +92,6 @@ for polygon in emd_busan_gdf.geometry:
                                                                           })
     geo_poly.add_to(m)   
     
-m    
-
-
-
 
 
 # 이동편의성만 높은 경우 - 파란색
@@ -115,8 +102,6 @@ for polygon in intersect_poly_lst_move:
     polygon_json = geo.to_json()
     geo_poly = folium.GeoJson(data=polygon_json, style_function=lambda x: {'fillColor': 'blue', 'fillOpacity': 0.4})
     geo_poly.add_to(m)   
-
-
 
 
 
@@ -131,8 +116,6 @@ for polygon in intersect_poly_lst_liv:
 
 
 
-
-
 # 두 편의성 다 높은 경우 - 보라색
 intersect_poly_lst_both = emd_busan_gdf.loc[(emd_busan_gdf.living_conv_score_norm >= th_liv_emd) & (emd_busan_gdf.move_conv_score_norm >= th_mov_emd), ['geometry']]['geometry']
 geo_json_lst = []
@@ -143,6 +126,7 @@ for polygon in intersect_poly_lst_both:
     geo_poly.add_to(m)   
 
 m
+
 
 
 
